@@ -15,7 +15,7 @@ class Tablero{
         {
             for(int j=0;j<tam;j++)
             {
-                mat[i][j] =0;
+                mat[i][j] = 0;
             }
         }
         reinas=r;
@@ -155,8 +155,6 @@ int main()
     	soluciones[i]->print_tablero();
     	cout<<"-------------------------------------------------\n"<<endl;
     }*/
-    //char c=65;
-    //cout<<c<<endl;
     imprimir_soluciones(soluciones);
     return 0;
 }
