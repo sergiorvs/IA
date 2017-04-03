@@ -156,6 +156,7 @@ int main()
     	cout<<"-------------------------------------------------\n"<<endl;
     }*/
     imprimir_soluciones(soluciones);
+    
     return 0;
 }
 
