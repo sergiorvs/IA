@@ -2,7 +2,7 @@
 #include <vector>
 
 using namespace std;
-#define tam 8
+#define tam 8 	
 
 class Tablero{
   public:
