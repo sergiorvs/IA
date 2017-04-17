@@ -78,7 +78,7 @@ public:
     			{
     				if( ( i-2>=0 && j-2>=0 && tab[i-2][j-2] == 0 ) )	
     				{
-    					tab[i-2][j-2]=-2;
+    					//tab[i-2][j-2]=-2;
     					movimientosFicha.push_back(make_pair(i-2,j-2));
     					flag++;
     					he_comido=1;
@@ -90,7 +90,7 @@ public:
     			{
     				if( ( i-2>=0 && j+2<tam && tab[i-2][j+2] == 0 ) )	
     				{
-    					tab[i-2][j+2]=-2;
+    					//tab[i-2][j+2]=-2;
     					movimientosFicha.push_back(make_pair(i-2,j+2));
 
     					flag++;
@@ -103,7 +103,7 @@ public:
     		{
     			if( ( i+2<tam && j+2<tam && tab[i+2][j+2] == 0 ) )	
     			{
-    				tab[i+2][j+2]=-2;
+    				//tab[i+2][j+2]=-2;
     				movimientosFicha.push_back(make_pair(i+2,j+2));
     				flag++;
     				he_comido=1;
@@ -114,7 +114,7 @@ public:
     		{
     			if( i+2<tam && j-2>=0 && tab[i+2][j-2] == 0 )
     			{
-    				tab[i+2][j-2]=-2;
+    				//tab[i+2][j-2]=-2;
     				movimientosFicha.push_back(make_pair(i+2,j-2));
     				flag++;
     				he_comido=1;
@@ -127,24 +127,28 @@ public:
     			{
 		    		if( ( i-1>=0 && j-1>=0 && tab[i-1][j-1] == 0 ))
 		    		{ 
-		    			tab[i-1][j-1]=-2; flag++;/*return 2;*/
+		    			//tab[i-1][j-1]=-2;
+                        flag++;/*return 2;*/
 		    			movimientosFicha.push_back(make_pair(i-1,j-1));
 		    		}
 		    		if( ( i-1>=0 && j+1<tam && tab[i-1][j+1] == 0 ))
 		    		{ 
-		    			tab[i-1][j+1]=-2; flag++;/*return 2;*/
+		    			//tab[i-1][j+1]=-2;
+                        flag++;/*return 2;*/
 		    			movimientosFicha.push_back(make_pair(i-1,j+1));
 		    		}
     			}
 
 	    		if( ( i+1<tam && j+1<tam && tab[i+1][j+1] == 0 ))
 	    		{
-	    			tab[i+1][j+1]=-2; flag++;/*return 2;*/
+	    			//tab[i+1][j+1]=-2;
+                    flag++;/*return 2;*/
 	    			movimientosFicha.push_back(make_pair(i+1,j+1));
 	    		}
 	    		if( ( i+1<tam && j-1>=0 && tab[i+1][j-1] == 0 ))
 	    		{
-	    			tab[i+1][j-1]=-2; flag++;/*return 2;*/
+	    			//tab[i+1][j-1]=-2;
+                    flag++;/*return 2;*/
 	    			movimientosFicha.push_back(make_pair(i+1,j-1));
 	    		}
     		}
@@ -157,7 +161,7 @@ public:
 	    		{
 	    			if( ( i+2<tam && j+2<tam && tab[i+2][j+2] == 0 ) )	
 	    			{
-	    				tab[i+2][j+2]=2;
+	    				//tab[i+2][j+2]=2;
 	    				movimientosFicha.push_back(make_pair(i+2,j+2));
 	    				flag++;
 	    				he_comido=1;
@@ -168,7 +172,7 @@ public:
 	    		{
 	    			if( i+2<tam && j-2>=0 && tab[i+2][j-2] == 0 )
 	    			{
-	    				tab[i+2][j-2]=2;
+	    				//tab[i+2][j-2]=2;
 	    				movimientosFicha.push_back(make_pair(i+2,j-2));
 	    				flag++;
 	    				he_comido=1;
@@ -180,7 +184,7 @@ public:
     		{
     			if( ( i-2>=0 && j-2>=0 && tab[i-2][j-2] == 0 ) )	
     			{
-    				tab[i-2][j-2]=2;
+    				//tab[i-2][j-2]=2;
     				movimientosFicha.push_back(make_pair(i-2,j-2));
     				flag++;
     				he_comido=1;
@@ -192,7 +196,7 @@ public:
     		{
     			if( ( i-2>=0 && j+2<tam && tab[i-2][j+2] == 0 ) )	
     			{
-    				tab[i-2][j+2]=2;
+    				//tab[i-2][j+2]=2;
     				movimientosFicha.push_back(make_pair(i-2,j+2));
     				flag++;
     				he_comido=1;
@@ -205,24 +209,28 @@ public:
     			{
 		    		if( ( i+1<tam && j+1<tam && tab[i+1][j+1] == 0 ))
 		    		{
-		    			tab[i+1][j+1]=2; flag++;/*return 2;*/
+		    			//tab[i+1][j+1]=2;
+                        flag++;/*return 2;*/
 		    			movimientosFicha.push_back(make_pair(i+1,j+1));
 		    		}
 	    			if( ( i+1<tam && j-1>=0 && tab[i+1][j-1] == 0 ))
 	    			{
-	    				tab[i+1][j-1]=2; flag++;/*return 2;*/
+	    				//tab[i+1][j-1]=2;
+                        flag++;/*return 2;*/
 	    				movimientosFicha.push_back(make_pair(i+1,j-1));
 	    			}
     			}
 
 	    		if( ( i-1>=0 && j-1>=0 && tab[i-1][j-1] == 0 ))
 	    		{
-	    			tab[i-1][j-1]=2; flag++;/*return 2*/;
+	    			//tab[i-1][j-1]=2;
+                    flag++;/*return 2*/;
 	    			movimientosFicha.push_back(make_pair(i-1,j-1));
 	    		}
 	    		if( ( i-1>=0 && j+1<tam && tab[i-1][j+1] == 0 ))
 	    		{
-	    			tab[i-1][j+1]=2; flag++;/*return 2*/;
+	    			//tab[i-1][j+1]=2;
+                    flag++;/*return 2*/;
 	    			movimientosFicha.push_back(make_pair(i-1,j+1));
 	    		}
     		}
@@ -282,18 +290,18 @@ bool siguiente_jugada(int i_o,int j_o,int i_f,int j_f)
 
     int tmp;
     tmp=tabl[i_o][j_o];
-    cout<<tabl[i_o][j_o]<<endl;
     tabl[i_o][j_o]=0;
-    cout<<tabl[i_o][j_o]<<endl;
     if(abs(i_f-i_o)==2)
     {
         if(i_f-i_o>0 && j_f-j_o>0)tabl[i_o+1][j_o+1]=0;
         if(i_f-i_o>0 && j_f-j_o<0)tabl[i_o+1][j_o-1]=0;
         if(i_f-i_o<0 && j_f-j_o<0)tabl[i_o-1][j_o-1]=0;
         if(i_f-i_o<0 && j_f-j_o>0)tabl[i_o-1][j_o+1]=0;
+
+        if(tabl[i_o][j_o]==1 || tabl[i_o][j_o]==11){fichas_rojas--;}
+        else{ fichas_negras--;}
     }
     tabl[i_f][j_f]=tmp;
-    cout<<tabl[i_f][j_f]<<endl;
 
     m_lvl++;
 

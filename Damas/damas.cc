@@ -28,6 +28,7 @@ public:
 			aux=jugadas[0];
 			if(aux->m_lvl==m_lvl_max)break;
 			jugadas.erase(jugadas.begin());
+			aux->turno=(aux->turno+1)%2;
 			aux->jugadas_permitidas();
 			jugadas_posibles_aux=aux->jugadas_posibles;
 			for(int i=0;i<jugadas_posibles_aux.size();i++)
@@ -49,7 +50,7 @@ public:
 
 int main()
 {
-	/*Tablero a(0);
+	/*Tablero a(1);
 	//cout<<a.tab[0][-1]<<endl;
 	print_tablero(a.tabl);
 	cout<<"-----------------------"<<endl;
@@ -79,7 +80,7 @@ int main()
 		}
 		cout<<endl;
 	}*/
-	Tablero a(0);
+	Tablero a(1);				///con 1 mueven las negras(1er jugador) y con 2 mueven las rojas.
 	print_tablero(a.tabl);
 	int i,j,i1,j1;
 	cout<<"humano... selecciona la ficha que quieres mover.."<<endl;
@@ -91,9 +92,13 @@ int main()
 	print_tablero(a.tabl);
 	cin>>i1;
 	cout<<endl;
-	minmax b(a.tabl,1,4);
+	minmax b(a.tabl,0,4);
 	b.contruir_arbol();
-	print_tablero(b.m_root->m_child[0]->m_child[0]->m_child[0]->tabl);
+	print_tablero(b.m_root->m_child[1]->tabl);
+	cout<<endl;
+	print_tablero(b.m_root->m_child[1]->m_child[0]->tabl);
+	cout<<endl;
+	print_tablero(b.m_root->m_child[1]->m_child[0]->m_child[0]->tabl);
 
 	return 0;
 }
