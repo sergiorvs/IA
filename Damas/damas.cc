@@ -10,8 +10,8 @@ public:
 	bool m_turno;
 	minmax(int matriz[tam][tam],bool turno,int lvl)
 	{
-		m_root=new Tablero(turno);
-		equals_matrices(m_root->tabl,matriz);
+		m_root=new Tablero(turno,matriz);
+		//equals_matrices(m_root->tabl,matriz);
 		m_lvl_max=lvl;
 		m_turno = turno;
 	}
@@ -28,7 +28,7 @@ public:
 			aux=jugadas[0];
 			if(aux->m_lvl==m_lvl_max)break;
 			jugadas.erase(jugadas.begin());
-			aux->turno=(aux->turno+1)%2;
+			//aux->turno=(aux->turno+1)%2;
 			aux->jugadas_permitidas();
 			jugadas_posibles_aux=aux->jugadas_posibles;
 			for(int i=0;i<jugadas_posibles_aux.size();i++)
@@ -80,7 +80,7 @@ int main()
 		}
 		cout<<endl;
 	}*/
-	Tablero a(1);				///con 1 mueven las negras(1er jugador) y con 2 mueven las rojas.
+	Tablero a(1);				///con 1 mueven las negras(-1)(1er jugador) y con 0 mueven las rojas(1).
 	print_tablero(a.tabl);
 	int i,j,i1,j1;
 	cout<<"humano... selecciona la ficha que quieres mover.."<<endl;

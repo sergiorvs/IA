@@ -65,14 +65,14 @@ public:
 //aparte... true si la ficha tiene al menos una movida |false
     bool puede_comer(int i,int j,int tab[tam][tam])/// 1 puede comer, 2 puede mover y 0 no puede hacer nada!
     {
-    	int flag=0;
+    	int flag=0;                ///si es que fue posible acer una jugada se suma 1
     	
     	bool he_comido=0;
 
     	vector< pair<int,int> > movimientosFicha;
     	if(turno)
     	{
-    		if(tab[i][j] == -11)//si es que es una reina
+    		/*if(tab[i][j] == -11)//si es que es una reina
     		{
     			if( ( i-1>=0 && j-1>=0 && tab[i-1][j-1] > 0 ))
     			{
@@ -98,7 +98,7 @@ public:
     					//return 1;
     				}
     			}
-    		}
+    		}*/
     		if( ( i+1<tam && j+1<tam && tab[i+1][j+1] > 0 ))
     		{
     			if( ( i+2<tam && j+2<tam && tab[i+2][j+2] == 0 ) )	
@@ -123,21 +123,21 @@ public:
     		}
     		if(!he_comido)
     		{
-    			if(tab[i][j] == -11)
+    			/*if(tab[i][j] == -11)
     			{
 		    		if( ( i-1>=0 && j-1>=0 && tab[i-1][j-1] == 0 ))
 		    		{ 
 		    			//tab[i-1][j-1]=-2;
-                        flag++;/*return 2;*/
+                        flag++;
 		    			movimientosFicha.push_back(make_pair(i-1,j-1));
 		    		}
 		    		if( ( i-1>=0 && j+1<tam && tab[i-1][j+1] == 0 ))
 		    		{ 
 		    			//tab[i-1][j+1]=-2;
-                        flag++;/*return 2;*/
+                        flag++;
 		    			movimientosFicha.push_back(make_pair(i-1,j+1));
 		    		}
-    			}
+    			}*/
 
 	    		if( ( i+1<tam && j+1<tam && tab[i+1][j+1] == 0 ))
 	    		{
@@ -155,7 +155,7 @@ public:
     	}
     	else
     	{
-    		if(tab[i][j] == 11)
+    		/*if(tab[i][j] == 11)
     		{
     			if( ( i+1<tam && j+1<tam && tab[i+1][j+1] < 0 ))
 	    		{
@@ -179,7 +179,7 @@ public:
 	    				//return 1;
 	    			}
 	    		}
-    		}
+    		}*/
     		if( ( i-1>=0 && j-1>=0 && tab[i-1][j-1] < 0 ))
     		{
     			if( ( i-2>=0 && j-2>=0 && tab[i-2][j-2] == 0 ) )	
@@ -192,7 +192,7 @@ public:
     			}
     		}
 
-    		if( ( i-1>=0 && j+1<tam && tab[i-1][j-1] < 0 ))
+    		if( ( i-1>=0 && j+1<tam && tab[i-1][j+1] < 0 ))
     		{
     			if( ( i-2>=0 && j+2<tam && tab[i-2][j+2] == 0 ) )	
     			{
@@ -205,21 +205,21 @@ public:
     		}
     		if(!he_comido)
     		{
-    			if(tab[i][j] == 11)
+    			/*if(tab[i][j] == 11)
     			{
 		    		if( ( i+1<tam && j+1<tam && tab[i+1][j+1] == 0 ))
 		    		{
 		    			//tab[i+1][j+1]=2;
-                        flag++;/*return 2;*/
+                        flag++;
 		    			movimientosFicha.push_back(make_pair(i+1,j+1));
 		    		}
 	    			if( ( i+1<tam && j-1>=0 && tab[i+1][j-1] == 0 ))
 	    			{
 	    				//tab[i+1][j-1]=2;
-                        flag++;/*return 2;*/
+                        flag++;
 	    				movimientosFicha.push_back(make_pair(i+1,j-1));
 	    			}
-    			}
+    			}*/
 
 	    		if( ( i-1>=0 && j-1>=0 && tab[i-1][j-1] == 0 ))
 	    		{
@@ -259,7 +259,7 @@ public:
     		for(int j=0;j<tam;j++)
     		{
     			if(tabl[i][j]==dama || tabl[i][j]==reina)puede_comer(i,j,tab);
-    			equals_matrices(tab,tabl);
+    			//equals_matrices(tab,tabl);
     		}
     	}
     }
@@ -273,6 +273,11 @@ bool siguiente_jugada(int i_o,int j_o,int i_f,int j_f)
     vector< pair<int,int> >pos_finales;
 
     pos_finales=jugadas_posibles[0].second;
+    cout<<"Las pos Finales son; "<<endl;
+    for(int i=0;i<pos_finales.size();i++)
+    {
+        cout<<"Pos i:"<<pos_finales[i].first<<" Pos j: "<<pos_finales[i].second<<endl;
+    }
     int i;
     bool flag=0;
     pair<int,int>pos_final;
@@ -290,7 +295,6 @@ bool siguiente_jugada(int i_o,int j_o,int i_f,int j_f)
 
     int tmp;
     tmp=tabl[i_o][j_o];
-    tabl[i_o][j_o]=0;
     if(abs(i_f-i_o)==2)
     {
         if(i_f-i_o>0 && j_f-j_o>0)tabl[i_o+1][j_o+1]=0;
@@ -298,14 +302,15 @@ bool siguiente_jugada(int i_o,int j_o,int i_f,int j_f)
         if(i_f-i_o<0 && j_f-j_o<0)tabl[i_o-1][j_o-1]=0;
         if(i_f-i_o<0 && j_f-j_o>0)tabl[i_o-1][j_o+1]=0;
 
-        if(tabl[i_o][j_o]==1 || tabl[i_o][j_o]==11){fichas_rojas--;}
+        if(tabl[i_o][j_o]==-1 || tabl[i_o][j_o]==-11){fichas_rojas--;}
         else{ fichas_negras--;}
     }
+    tabl[i_o][j_o]=0;
     tabl[i_f][j_f]=tmp;
 
     m_lvl++;
 
-    jugadas_posibles.clear();
+    //jugadas_posibles.clear();
     return 1;
 }
 
