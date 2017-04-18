@@ -72,6 +72,8 @@ public:
     	vector< pair<int,int> > movimientosFicha;
     	if(turno)
     	{
+            cout<<"entro en turno 1"<<endl;
+            //cout<<"entro"<<endl;
     		/*if(tab[i][j] == -11)//si es que es una reina
     		{
     			if( ( i-1>=0 && j-1>=0 && tab[i-1][j-1] > 0 ))
@@ -155,6 +157,7 @@ public:
     	}
     	else
     	{
+            cout<<"entro en turno 2"<<endl;
     		/*if(tab[i][j] == 11)
     		{
     			if( ( i+1<tam && j+1<tam && tab[i+1][j+1] < 0 ))
@@ -248,40 +251,60 @@ public:
 
     void jugadas_permitidas()
     {
-    	int dama,reina;
-    	if(turno){dama=-1;reina=-11;}
-    	else{dama=1;reina=11;}
+    	int dama;
+    	if(turno){dama=-1;}
+    	else{dama=1;}
     	int tab[tam][tam];
     	//cout<<"se igualo! prueba ->"<<tab[7][7]<<endl;
-    	//equals_matrices(tab,tabl);
+    	equals_matrices(tab,tabl);
     	for(int i=0;i<tam;i++)
     	{
     		for(int j=0;j<tam;j++)
     		{
-    			if(tabl[i][j]==dama || tabl[i][j]==reina)puede_comer(i,j,tab);
-    			//equals_matrices(tab,tabl);
-    		}
-    	}
+                if(tabl[i][j]==dama)puede_comer(i,j,tab);
+                equals_matrices(tab,tabl);
+            }
+        }
     }
 
 
-bool siguiente_jugada(int i_o,int j_o,int i_f,int j_f)
+void siguiente_jugada(int i_o,int j_o,int i_f,int j_f)
 {
+        
     //cout<<"entre!!!!!"<<endl;
-    jugadas_posibles.clear();
-    if(!puede_comer(i_o,j_o,tabl))return 0;
+   // jugadas_posibles.clear();
+    //int tab[tam][tam];
+    //equals_matrices(tab,tabl);
+    //cout<<"TURNO>>>>>>>>>>>>>>><"<<turno<<endl;
+    //if(!puede_comer(i_o,j_o,tab))return 0;
+    //cout<<"PASO....."<<endl;
+    //jugadas_posibles.clear();
+    //jugadas_permitidas();
+ /*   cout<<"tammm>>>>>>>>>>>>>>>"<<jugadas_posibles.size()<<endl;
     vector< pair<int,int> >pos_finales;
+    pair<int,int>pos_final;
+    pair<int,int>pos_inicial;
+    pos_final=make_pair(i_f,j_f);
+    pos_inicial=make_pair(i_o,j_o);
 
-    pos_finales=jugadas_posibles[0].second;
-    cout<<"Las pos Finales son; "<<endl;
+    int i;int fl=0;
+    for(i=0;i<jugadas_posibles.size();i++)
+    {
+        if(pos_inicial==jugadas_posibles[i].first){
+            ++fl;
+            break;
+        }
+    }
+    if(fl==0)return 0;
+
+
+    pos_finales=jugadas_posibles[i].second;
+    cout<<"Para la ficha en la pos ("<<i_o<<", "<<j_o<<") Las pos Finales son; "<<endl;
     for(int i=0;i<pos_finales.size();i++)
     {
         cout<<"Pos i:"<<pos_finales[i].first<<" Pos j: "<<pos_finales[i].second<<endl;
     }
-    int i;
     bool flag=0;
-    pair<int,int>pos_final;
-    pos_final=make_pair(i_f,j_f);
     for(i=0;i<pos_finales.size();i++)
     {
         if(pos_finales[i]==pos_final)
@@ -291,7 +314,7 @@ bool siguiente_jugada(int i_o,int j_o,int i_f,int j_f)
         }
     }
     if(flag==0)return 0;
-
+*/
 
     int tmp;
     tmp=tabl[i_o][j_o];
@@ -308,10 +331,11 @@ bool siguiente_jugada(int i_o,int j_o,int i_f,int j_f)
     tabl[i_o][j_o]=0;
     tabl[i_f][j_f]=tmp;
 
-    m_lvl++;
+   
+    m_lvl=m_lvl+1;
 
     //jugadas_posibles.clear();
-    return 1;
+   // return 1;
 }
 
 

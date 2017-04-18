@@ -21,32 +21,86 @@ public:
 		vector< pair< pair<int,int>, vector< pair<int,int> > > >jugadas_posibles_aux;//Vector Supremo segundo
 		vector<Tablero* >jugadas;
 		Tablero* aux;
+
 		jugadas.push_back(m_root);
-		int cont=0;
-		while(jugadas.size()>0)
+		int cont=1;
+		aux=m_root;
+		Tablero* tmp;
+		while(jugadas.size()>0 && cont<=m_lvl_max/*&& aux->m_lvl<=m_lvl_max*/)
 		{
+			if(aux->m_lvl>=m_lvl_max)break;
 			aux=jugadas[0];
-			if(aux->m_lvl==m_lvl_max)break;
 			jugadas.erase(jugadas.begin());
+			//aux->jugadas_posibles.clear();
 			//aux->turno=(aux->turno+1)%2;
 			aux->jugadas_permitidas();
 			jugadas_posibles_aux=aux->jugadas_posibles;
-			for(int i=0;i<jugadas_posibles_aux.size();i++)
+			for(int i=0;i<aux->jugadas_posibles.size();i++)
 			{
-				for(int j=0;j<jugadas_posibles_aux[i].second.size();j++)
+				cout<<"para el elemento "<<aux->jugadas_posibles[i].first.first<<", "<<aux->jugadas_posibles[i].first.second<<" sus jugadas posbiles son: ";
+				for(int j=0;j<aux->jugadas_posibles[i].second.size();j++)
 				{
-					aux->m_child.push_back(new Tablero(m_turno,aux->tabl,aux->m_lvl));
+					cout<<"("<<aux->jugadas_posibles[i].second[j].first<<", "<<aux->jugadas_posibles[i].second[j].second<<"); ";
+				}
+				cout<<endl;
+			}
+			//cout<<"aux->jugadas_posibles.size()---->"<<aux->jugadas_posibles.size()<<endl;
+			for(int i=0;i<aux->jugadas_posibles.size();i++)
+			{
+				for(int j=0;j<aux->jugadas_posibles[i].second.size();j++)
+				{
+					aux->m_child.push_back(new Tablero((m_turno),aux->tabl,aux->m_lvl));
+					//aux->m_child[aux->m_child.size()-1]->jugadas_permitidas();
+					//tmp=aux->m_child[aux->m_child.size()-1];
+					//tmp->jugadas_permitidas();
+
 					aux->m_child[aux->m_child.size()-1]->siguiente_jugada(aux->jugadas_posibles[i].first.first,aux->jugadas_posibles[i].first.second,aux->jugadas_posibles[i].second[j].first,aux->jugadas_posibles[i].second[j].second);
 					jugadas.push_back(aux->m_child[aux->m_child.size()-1]);
+					/*aux->m_child.push_back(new Tablero(m_turno,aux->tabl,aux->m_lvl+1));
+					aux->m_child[aux->m_child.size()-1]->siguiente_jugada(jugadas_posibles_aux[i].first.first,jugadas_posibles_aux[i].first.second,jugadas_posibles_aux[i].second[j].first,jugadas_posibles_aux[i].second[j].second);
+					jugadas.push_back(aux->m_child[aux->m_child.size()-1]);*/
 				}
 			}
-			m_turno=(m_turno+1)%2;
+			m_turno=!m_turno;
+			cout<<"TURNO!!!!!!!!!!!!!!!!!!!!!!! "<<m_turno<<endl;
+			cont++;
 			//cout<<aux->m_lvl<<endl;
 		}
 	}
+/*
+	void contruir_arbol()
+	{
+		Tablero* ptr = m_root;
+		vector< pair< pair<int,int>, vector< pair<int,int> > > >jugadas_posibles_aux;//Vector Supremo segundo
+	
+		for(int i=0;i<jugadas_posibles_aux.size();i++)
+			{
+				for(int j=0;j<jugadas_posibles_aux[i].second.size();j++)
+				{
+					ptr = new Tablero(ptr->m_turno,ptr->tabl,ptr->m_lvl+1); ;
+				}
+			}
+
+	}
+
+	void contruir_arbol_restante(Tablero* ptr)
+	{
+		//ptr = m_root;
+		vector< pair< pair<int,int>, vector< pair<int,int> > > >jugadas_posibles_aux;//Vector Supremo segundo
+		if(ptr->m_lvl>=m_lvl_max)return ;
+		for(int i=0;i<jugadas_posibles_aux.size();i++)
+			{
+				for(int j=0;j<jugadas_posibles_aux[i].second.size();j++)
+				{
+					ptr = new Tablero(ptr->m_turno,ptr->tabl,ptr->m_lvl+1); ;
+				}
+			}
 
 
+	}
+*/
 };
+
 
 int main()
 {
@@ -88,17 +142,24 @@ int main()
 	//falta si es que puede comer--preguntar
 	cout<<"humano... selecciona la posicion a la que deseas mover la ficha seleccionada.."<<endl;
 	cin>>i1;cin>>j1;
+	a.jugadas_permitidas();
 	a.siguiente_jugada(i,j,i1,j1);
 	print_tablero(a.tabl);
+	minmax b(a.tabl,0,4);
+	//cout<<"nivel maximo"<<b.m_lvl_max<<endl;
 	cin>>i1;
 	cout<<endl;
-	minmax b(a.tabl,0,4);
 	b.contruir_arbol();
-	print_tablero(b.m_root->m_child[1]->tabl);
+	print_tablero(b.m_root->m_child[0]->tabl);
+	cout<<"lvl---------->"<<b.m_root->m_child[0]->m_lvl<<endl;
 	cout<<endl;
-	print_tablero(b.m_root->m_child[1]->m_child[0]->tabl);
+	print_tablero(b.m_root->m_child[0]->m_child[0]->tabl);
+	cout<<"lvl---------->"<<b.m_root->m_child[0]->m_child[0]->m_lvl<<endl;
 	cout<<endl;
-	print_tablero(b.m_root->m_child[1]->m_child[0]->m_child[0]->tabl);
+	print_tablero(b.m_root->m_child[0]->m_child[0]->m_child[0]->tabl);
+	//cout<<"lvl---------->"<<b.m_root->m_child[0]->m_child[0]->m_child[0]->m_lvl<<endl;
+	cout<<endl;
+	//print_tablero(b.m_root->m_child[0]->m_child[0]->m_child[0]->m_child[0]->tabl);
 
 	return 0;
 }
