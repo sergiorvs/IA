@@ -1,4 +1,6 @@
 #include "Tablero.h"
+#include <queue> 
+
 class miniMax
 {
 public:
@@ -38,12 +40,31 @@ public:
             for(int i=0;i<aux->mTablerosUpdate.size();i++)
             {
                 ptr=new Tablero(aux->mTablerosUpdate[i],!aux->mTurno,aux->mNivelMinMax+1);
+                ptr->mParent=aux;                
                 aux->mChild.push_back(ptr);
                 next_jugadas.push_back(ptr);
             }
         }
 
     }
+
+  /*  Tablero* minmax()
+    {
+        deque<Tablero *> aux;
+        aux.push_front(m_root);
+        Tablero* tmp;
+        bool flag=1;        //1 maximizador, 0 minimizador
+        while(!aux.empty())
+        {
+            tmp=aux.front();
+            aux.pop_front();
+
+            for(int i=0;i<tmp->m_child.size();i++)
+            {
+                aux.push_front(tmp->m_child[i]);
+            }
+            
+    }*/
 
 
    /* void construirArbolNivelBase()
@@ -120,6 +141,8 @@ int main() {
     cout<<"**********************************************************"<<endl;*/
     /*Tablero tablerito(tabl,0,0);
     tablerito.realizarJugada();*/
+    /*tabl[2][0]=0;
+    tabl[4][2]=-1;*/
     miniMax arbol(tabl,0,5);
     arbol.construirArbolNivelBase();
     cout<<"Imprimiendo Hijos "<<endl;

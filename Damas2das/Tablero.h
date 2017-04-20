@@ -6,11 +6,17 @@ class Tablero
 {
 public:
     vector<Tablero*>mChild;
+    Tablero* mParent;
     int** mTablero;
     bool mTurno;
     int mNivelMinMax;
     pair< pair<int,int>, vector< pair<int,int> > >  mJugadasPorFicha;
     vector<int**> mTablerosUpdate;
+    int fichas_negras,fichas_rojas,vertice;
+    /*Variables Alfa y Beta*/
+    int valor=0;
+    int alfa=-9999; ///si es maximizador
+    int betha=9999;///si es minimizador
 
 
     Tablero(int** Matriz,bool turno,int nivelMinMax)
@@ -20,9 +26,13 @@ public:
         {
             mTablero[i]=new int[tam];
         }
+        mParent=NULL;
         igualarMatrices(mTablero,Matriz);
         mTurno = turno;
         mNivelMinMax = nivelMinMax;
+        fichas_rojas=12;
+        fichas_negras=12;
+        vertice=0;
 
     }
 
@@ -180,7 +190,11 @@ public:
                 if(posFinali-fichaPosi>0 && posFinalj-fichaPosj<0)matriz[fichaPosi+1][fichaPosj-1]=0;
                 if(posFinali-fichaPosi<0 && posFinalj-fichaPosj<0)matriz[fichaPosi-1][fichaPosj-1]=0;
                 if(posFinali-fichaPosi<0 && posFinalj-fichaPosj>0)matriz[fichaPosi-1][fichaPosj+1]=0;
+                if(value==1){fichas_rojas--;}
+                else{fichas_negras--;}
             }
+            if(mTurno==0){valor=fichas_rojas-fichas_negras;}
+            else{valor=fichas_negras-fichas_rojas;}
             matriz[fichaPosi][fichaPosj]=0;
             matriz[posFinali][posFinalj]=value;
             //printTablero(matriz);
