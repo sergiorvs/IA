@@ -1,6 +1,4 @@
 #include "Funciones.h"
-#ifndef IADAMASMINMAC_TABLERO_H
-#define IADAMASMINMAC_TABLERO_H
 
 class Tablero
 {
@@ -12,11 +10,11 @@ public:
     int mNivelMinMax;
     pair< pair<int,int>, vector< pair<int,int> > >  mJugadasPorFicha;
     vector<int**> mTablerosUpdate;
-    int fichas_negras,fichas_rojas,vertice;
+    int fichas_negras,fichas_rojas,mVertice;
     /*Variables Alfa y Beta*/
-    int valor=0;
-    int alfa=-9999; ///si es maximizador
-    int betha=9999;///si es minimizador
+    int mValor=0;
+    int mAlfa=-9999; ///si es maximizador
+    int mBetha=9999;///si es minimizador
 
 
     Tablero(int** Matriz,bool turno,int nivelMinMax)
@@ -32,7 +30,7 @@ public:
         mNivelMinMax = nivelMinMax;
         fichas_rojas=12;
         fichas_negras=12;
-        vertice=0;
+        mVertice=0;
 
     }
 
@@ -193,8 +191,8 @@ public:
                 if(value==1){fichas_rojas--;}
                 else{fichas_negras--;}
             }
-            if(mTurno==0){valor=fichas_rojas-fichas_negras;}
-            else{valor=fichas_negras-fichas_rojas;}
+            if(mTurno==0){mValor=fichas_rojas-fichas_negras;}
+            else{mValor=fichas_negras-fichas_rojas;}
             matriz[fichaPosi][fichaPosj]=0;
             matriz[posFinali][posFinalj]=value;
             //printTablero(matriz);
@@ -204,11 +202,3 @@ public:
     }
 
 };
-
-
-
-
-
-
-
-#endif //IADAMASMINMAC_TABLERO_H
