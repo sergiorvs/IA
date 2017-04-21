@@ -62,6 +62,8 @@ public:
         aux.push_front(mRoot);
         Tablero* tmp=mRoot;
         Tablero* mejor_jugada;
+        mejor_jugada=mRoot->mChild[0];
+
         int cont=0;
         int contAux;
         bool flag=true;
@@ -131,7 +133,7 @@ public:
                         int val=0;
                         for(int i=0;i<mRoot->mChild.size();i++)
                         {
-                            if(mRoot->mChild[i]->vertice>=val)
+                            if(mRoot->mChild[i]->vertice>val)
                             {
                                 mejor_jugada=mRoot->mChild[i];
                                 val=mRoot->mChild[i]->vertice;
@@ -232,7 +234,7 @@ int main() {
     tablerito.realizarJugada();*/
     /*tabl[2][0]=0;
     tabl[4][2]=-1;*/
-    miniMax arbol(tabl,0,5);
+    miniMax arbol(tabl,1,5);
     arbol.construirArbolNivelBase();
     cout<<"NUM DE HIJOS: "<<arbol.mRoot->mChild.size()<<endl;
     //cout<<"NUM DE HIJOS: "<<arbol.mRoot->mChild[0]->mChild.size()<<endl;
