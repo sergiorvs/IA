@@ -45,7 +45,15 @@ public:
                 next_jugadas.push_back(ptr);
             }
         }
+    }
 
+    void actualizar_hijos(Tablero* ptr)///copia el alfa beta del padre a los hijos
+    {
+        for(int i=0;i<ptr->mChild.size();i++)
+        {
+            ptr->mChild[i]->alfa=ptr->alfa;
+            ptr->mChild[i]->betha=ptr->betha;
+        }
     }
 
     Tablero* minmax()
@@ -53,13 +61,24 @@ public:
         deque<Tablero *> aux;
         aux.push_front(mRoot);
         Tablero* tmp=mRoot;
+        Tablero* mejor_jugada;
+        int cont=0;
+        int contAux;
+        bool flag=true;
+
+
         //bool flag=1;        //1 maximizador, 0 minimizador
         while(!aux.empty())
         {
             for(int i=0;i<tmp->mChild.size();i++)
             {
                 aux.push_front(tmp->mChild[i]);
+                if(flag)
+                {
+                    cont++;
+                }
             }
+            flag=false;
             tmp=aux.front();
                 //cout<<"hola"<<endl;
             
@@ -69,46 +88,71 @@ public:
                 if(tmp->mParent){
                     if(tmp->mParent->mNivelMinMax % 2!= 0)  ///minimizador
                     {
+                       // cout<<"es minimizador"<<endl;
                         if(tmp->mParent->alfa < tmp->mParent->betha)
                         {
                             if(tmp->mParent->betha>tmp->valor)
                             {
+                                if(tmp->mParent != mRoot )contAux;
                                 tmp->mParent->betha = tmp->valor;
                                 tmp->mParent->vertice = tmp->valor;
+                                actualizar_hijos(tmp->mParent);
 
                             }
 
                             
                         }
+                        else if(tmp->mParent = mRoot ){contAux=cont;}
                     }
                     else
                     {
-
+                       // cout<<"es maximizador"<<endl;
                         if(tmp->mParent->alfa > tmp->mParent->betha)
                         {
                             if(tmp->mParent->alfa>tmp->valor)
                             {
+                                if(tmp->mParent != mRoot )contAux++;
                                 tmp->mParent->alfa = tmp->valor;
                                 tmp->mParent->vertice = tmp->valor;
+                                actualizar_hijos(tmp->mParent);
                             }
-                        }   
+                            //else{tmp->mParent->mChild.pop_back();}
+                        }
+                        else if(tmp->mParent = mRoot ){contAux=cont;}   
                         
                     }
-                    if(tmp->mParent){
+
+                    if(tmp->mParent != mRoot ){
                         tmp->mParent->mChild.pop_back();
                     }
-                    cout<<"size1 "<<aux.size()<<endl;
+
+                    if(contAux==cont)
+                    {
+                        int val=0;
+                        for(int i=0;i<mRoot->mChild.size();i++)
+                        {
+                            if(mRoot->mChild[i]->vertice>=val)
+                            {
+                                mejor_jugada=mRoot->mChild[i];
+                                val=mRoot->mChild[i]->vertice;
+                            }
+                        }
+
+                        return mejor_jugada;
+                    }
+
+
+                   // cout<<"size1 "<<aux.size()<<endl;
                     
-                    //if(tmp->mParent != mRoot )
                 }
                     aux.pop_front();            
-                    cout<<"size2 "<<aux.size()<<endl;
-                    cout<<"hi"<<endl;
+                    //cout<<"size2 "<<aux.size()<<endl;
+                    //cout<<"hi"<<endl;
             }
          
         
         }
-            cout<<"libre!!!!!!"<<endl;
+            //cout<<"libre!!!!!!"<<endl;
     }
 
 
@@ -188,7 +232,7 @@ int main() {
     tablerito.realizarJugada();*/
     /*tabl[2][0]=0;
     tabl[4][2]=-1;*/
-    miniMax arbol(tabl,0,0);
+    miniMax arbol(tabl,0,5);
     arbol.construirArbolNivelBase();
     cout<<"NUM DE HIJOS: "<<arbol.mRoot->mChild.size()<<endl;
     //cout<<"NUM DE HIJOS: "<<arbol.mRoot->mChild[0]->mChild.size()<<endl;
@@ -202,6 +246,8 @@ int main() {
     //printTablero(arbol.mRoot->mChild[0]->mTablero);
     //printTablero(arbol.mRoot->mChild[0]->mChild[0]->mTablero);
     //printTablero(arbol.mRoot->mChild[0]->mChild[0]->mChild[0]->mTablero);
-    arbol.minmax();
+    Tablero* aux=arbol.minmax();
+    printTablero(aux->mTablero);
+    
     return 0;
 }   
