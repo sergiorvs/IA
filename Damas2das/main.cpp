@@ -66,41 +66,49 @@ public:
             if(tmp->mChild.size() == 0)
             {
                 
-                if(tmp->mParent->mNivelMinMax % 2!= 0)  ///minimizador
-                {
-                    if(tmp->mParent->alfa < tmp->mParent->betha)
+                if(tmp->mParent){
+                    if(tmp->mParent->mNivelMinMax % 2!= 0)  ///minimizador
                     {
-                        if(tmp->mParent->betha>tmp->valor)
+                        if(tmp->mParent->alfa < tmp->mParent->betha)
                         {
-                            tmp->mParent->betha = tmp->valor;
-                            tmp->mParent->vertice = tmp->valor;
+                            if(tmp->mParent->betha>tmp->valor)
+                            {
+                                tmp->mParent->betha = tmp->valor;
+                                tmp->mParent->vertice = tmp->valor;
 
+                            }
+
+                            
                         }
+                    }
+                    else
+                    {
 
+                        if(tmp->mParent->alfa > tmp->mParent->betha)
+                        {
+                            if(tmp->mParent->alfa>tmp->valor)
+                            {
+                                tmp->mParent->alfa = tmp->valor;
+                                tmp->mParent->vertice = tmp->valor;
+                            }
+                        }   
                         
                     }
-                }
-                else
-                {
-
-                    if(tmp->mParent->alfa > tmp->mParent->betha)
-                    {
-                        if(tmp->mParent->alfa>tmp->valor)
-                        {
-                            tmp->mParent->alfa = tmp->valor;
-                            tmp->mParent->vertice = tmp->valor;
-                        }
-                    }   
+                    if(tmp->mParent){
+                        tmp->mParent->mChild.pop_back();
+                    }
+                    cout<<"size1 "<<aux.size()<<endl;
                     
+                    //if(tmp->mParent != mRoot )
                 }
-                
-                //if(tmp->mParent != mRoot )
-                aux.pop_front();            
+                    aux.pop_front();            
+                    cout<<"size2 "<<aux.size()<<endl;
+                    cout<<"hi"<<endl;
             }
          
-         
         
-    }
+        }
+            cout<<"libre!!!!!!"<<endl;
     }
 
 
@@ -180,8 +188,10 @@ int main() {
     tablerito.realizarJugada();*/
     /*tabl[2][0]=0;
     tabl[4][2]=-1;*/
-    miniMax arbol(tabl,0,1);
+    miniMax arbol(tabl,0,0);
     arbol.construirArbolNivelBase();
+    cout<<"NUM DE HIJOS: "<<arbol.mRoot->mChild.size()<<endl;
+    //cout<<"NUM DE HIJOS: "<<arbol.mRoot->mChild[0]->mChild.size()<<endl;
     cout<<"Imprimiendo Hijos "<<endl;
     /*for(int i=0;i<arbol.mRoot->mChild.size();i++)
     {
