@@ -48,23 +48,63 @@ public:
 
     }
 
-  /*  Tablero* minmax()
+    Tablero* minmax()
     {
         deque<Tablero *> aux;
-        aux.push_front(m_root);
-        Tablero* tmp;
-        bool flag=1;        //1 maximizador, 0 minimizador
+        aux.push_front(mRoot);
+        Tablero* tmp=mRoot;
+        //bool flag=1;        //1 maximizador, 0 minimizador
         while(!aux.empty())
         {
-            tmp=aux.front();
-            aux.pop_front();
-
-            for(int i=0;i<tmp->m_child.size();i++)
-            {
-                aux.push_front(tmp->m_child[i]);
-            }
             
-    }*/
+            
+
+            for(int i=0;i<tmp->mChild.size();i++)
+            {
+                aux.push_front(tmp->mChild[i]);
+            }
+            tmp=aux.front();
+                //cout<<"hola"<<endl;
+            
+            if(tmp->mChild.size() == 0)
+            {
+                
+                if(tmp->mParent->mNivelMinMax % 2!= 0)  ///minimizador
+                {
+                    if(tmp->mParent->alfa < tmp->mParent->betha)
+                    {
+                        if(tmp->mParent->betha>tmp->valor)
+                        {
+                            tmp->mParent->betha = tmp->valor;
+                            tmp->mParent->vertice = tmp->valor;
+
+                        }
+
+                        
+                    }
+                }
+                else
+                {
+
+                    if(tmp->mParent->alfa > tmp->mParent->betha)
+                    {
+                        if(tmp->mParent->alfa>tmp->valor)
+                        {
+                            tmp->mParent->alfa = tmp->valor;
+                            tmp->mParent->vertice = tmp->valor;
+                        }
+                    }   
+                    
+                }
+                
+                if(tmp->mParent != mRoot )
+                    aux.pop_front();            
+            }
+         
+         
+        
+    }
+    }
 
 
    /* void construirArbolNivelBase()
@@ -143,7 +183,7 @@ int main() {
     tablerito.realizarJugada();*/
     /*tabl[2][0]=0;
     tabl[4][2]=-1;*/
-    miniMax arbol(tabl,0,5);
+    miniMax arbol(tabl,0,1);
     arbol.construirArbolNivelBase();
     cout<<"Imprimiendo Hijos "<<endl;
     /*for(int i=0;i<arbol.mRoot->mChild.size();i++)
@@ -151,9 +191,10 @@ int main() {
         cout<<"Turno "<<arbol.mRoot->mChild[i]->mTurno<<" Level: "<<arbol.mRoot->mChild[i]->mNivelMinMax<<endl;
         printTablero(arbol.mRoot->mChild[i]->mTablero);
     }*/
-    printTablero(arbol.mRoot->mTablero);
-    printTablero(arbol.mRoot->mChild[0]->mTablero);
-    printTablero(arbol.mRoot->mChild[0]->mChild[0]->mTablero);
-    printTablero(arbol.mRoot->mChild[0]->mChild[0]->mChild[0]->mTablero);
+    //printTablero(arbol.mRoot->mTablero);
+    //printTablero(arbol.mRoot->mChild[0]->mTablero);
+    //printTablero(arbol.mRoot->mChild[0]->mChild[0]->mTablero);
+    //printTablero(arbol.mRoot->mChild[0]->mChild[0]->mChild[0]->mTablero);
+    arbol.minmax();
     return 0;
-}
+}   
